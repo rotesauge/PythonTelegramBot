@@ -1,8 +1,9 @@
 import telebot
 from convertor import ConvertException, Convertor
 import traceback
+from token import TOKEN
 
-bot = telebot.TeleBot('5928880745:AAHfI84JMoG4-9U4kPseTTGWdmbIvJwgDLM')
+bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start','help'])
 def begin(message: telebot.types.Message):
@@ -33,6 +34,14 @@ def converter(message: telebot.types.Message):
         bot.reply_to(message, f"Неизвестная ошибка:\n{e}")
     else:
         bot.reply_to(message, answer)
+
+@bot.message_handler(content_types=['photo','document'])
+def say_lmao(message: telebot.types.Message):
+        bot.reply_to(message, 'Неверный тип данных!')
+
+
+bot.polling(none_stop=True)
+
 
 @bot.message_handler(content_types=['photo','document'])
 def say_lmao(message: telebot.types.Message):
